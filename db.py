@@ -1,8 +1,10 @@
 import pypyodbc
 
+with open(.pw) as f:
+    password = f.read()
+
 def createDB():
-    with open(.pw) as f:
-        password = f.read()
+    
         
     connection = connection = pypyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
                                             'Server=137.135.135.105;;'
