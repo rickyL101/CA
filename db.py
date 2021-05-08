@@ -5,7 +5,7 @@ def createDB():
         password = f.read()
         
     connection = connection = pypyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
-                                            'Server=;'
+                                            'Server=137.135.135.105;;'
                                             'Database=master;'
                                             'encrypt=yes;'
                                             'TrustServerCertificate=yes;'
