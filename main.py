@@ -21,8 +21,9 @@ def home():
 #to validate user login
 @app.route('/validation', methods=['POST'])
 def validation():
-
-    return "."
+    email = request.form.get('email')
+    password = request.form.get('password')
+    return f"The email is {email} and the password is {password}"
 
 if __name__ == '__main__':
     app.run(debug=True)
