@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-
+import debug
 app = Flask(__name__, static_url_path='/static', static_folder='static/')
 
 
@@ -26,4 +26,6 @@ def validation():
     return f"The email is {email} and the password is {password}"
 
 if __name__ == '__main__':
+    db.createDB()
     app.run(debug=True)
+    
