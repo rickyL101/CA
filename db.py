@@ -1,13 +1,13 @@
 import pypyodbc
 
 with open(.pw) as f:
-    password = f.read()
+  password = f.read()
 
 def createDB():
     
         
     connection = connection = pypyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
-                                            'Server=137.135.135.105;;'
+                                            'Server=137.135.135.105;'
                                             'Database=master;'
                                             'encrypt=yes;'
                                             'TrustServerCertificate=yes;'
@@ -15,7 +15,7 @@ def createDB():
                                             'PWD=' + password, autocommit=True)
 
     cursor = connection.cursor()
-    SQLCommand = ("CREATE DATABASE userData;")
+    SQLCommand = ("CREATE DATABASE IF NOT EXISTS userData;")
     cursor.execute(SQLCommand)
     print('done')
 
