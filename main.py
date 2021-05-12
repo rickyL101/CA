@@ -4,7 +4,7 @@ import db
 app = Flask(__name__)
 
 # https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask/34903502
-app.SECRET_KEY = os.urandom(24)
+app.secret_key = os.urandom(24)
 
 
 #base page
@@ -36,26 +36,27 @@ def home():
 def validation():
     email = request.form.get('email')
     password = request.form.get('password')
-    db.cursor.execute(f"""Select * FROM `users` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';""")
+    db.cursor.execute(f'''Select * FROM `users` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';''')
     users = db.cursor.fetchall()
     if len(users) > 0:
         session['user_id'] = users[0][0]
         return redirect("/home")
     else:
         return redirect("/")
-        flash("Invalid Email or Password", category="error")
+        
+
+        
 
 #add a new user
 @app.route('/add', methods=['POST'])
 def add():
-    #below block taken from moodle "Setup and example server"
-    name = request.form.get('name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    s = f'''INSERT INTO users(id, name, email, password) VALUES (NULL, '{name}', '{email}', '{password}');'''
-    db.cursor.execute(s)
-    db.cursor.connection.commit()
+    name = request.form.get('user_name')
+    email = request.form.get('user_email')
+    password = request.form.get('user_password')
+    db.cursor.execute(f'''INSERT INTO `users`(`user_id`, `name`, `email`, `password`) VALUES (NULL, '{name}', '{email}', '{password}');''')
+    db.connection.commit()
 
+    db.cursor.execute(f'''SELECT * FROM `users` WHERE `email` LIKE '{email}';''')
     new_user = db.cursor.fetchall()
     session['user_id'] = new_user[0][0]
     return redirect('/home')
