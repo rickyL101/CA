@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash
+import requests
 import os
 import db
 app = Flask(__name__)
@@ -27,7 +28,9 @@ def signout():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        return render_template("home.html")
+        data = requests.get("https://disease.sh/v3/covid-19/all") # get request to covid api
+        data_json = data.json() # converting to json
+        return render_template("home.html", data = data_json)
     else:
         return redirect("/")
 
@@ -43,8 +46,6 @@ def validation():
         return redirect("/home")
     else:
         return redirect("/")
-        
-
         
 
 #add a new user
