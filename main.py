@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, flash
 import requests
 import os
 import db
+import pandas as pd
 app = Flask(__name__)
 
 # https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask/34903502
