@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request, redirect, session, flash
-import requests
+import covid_data
 import os
 import db
-import pandas as pd
 app = Flask(__name__)
 
 # https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask/34903502
-app.secret_key = os.urandom(24)
+#will grant a 24 digit code to a user upon signin
+app.secret_key = os.urandom(24) 
 
 
+
+    
 #base page
 @app.route("/")
 def signin():
@@ -25,13 +27,14 @@ def signout():
     session.pop('user_id')
     return redirect("/")
 
+
 #user signed in
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        data = requests.get("https://disease.sh/v3/covid-19/all") # get request to covid api
-        data_json = data.json() # converting to json
-        return render_template("home.html", data = data_json)
+        data = covid_data.world()
+        countries_data = covid_data.countries()
+        return render_template("home.html", data=data, countries = countries_data)
     else:
         return redirect("/")
 
