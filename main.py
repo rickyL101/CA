@@ -38,6 +38,17 @@ def home():
     else:
         return redirect("/")
 
+@app.route("/ireland")
+def ireland():
+    if 'user_id' in session:
+        ireland_data = covid_data.ireland()
+        days = ireland_data[0]
+        cases = ireland_data[1]
+        deaths = ireland_data[2]
+        return render_template("ireland.html", ireland=ireland_data, days=days, cases=cases, deaths=deaths)
+    else:
+        return redirect("/")
+
 #to validate user login
 @app.route("/validation", methods=["POST"])
 def validation():
