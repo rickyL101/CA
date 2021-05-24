@@ -24,6 +24,25 @@ def countries():
 
     return countries_dict
 
+def europe():
+    data = requests.get("https://disease.sh/v3/covid-19/countries")
+    europe_data = data.json()
+
+    europe_dict = {}
+    for item in europe_data:
+        if item['continent'] == 'Europe':
+            if item['country'] not in europe_data:
+                europe_dict.update({item['country']: {'Population': item['population'],
+                                    'Confirmed': item['cases'], 'Deaths': item['deaths']}})
+            else:
+                europe_dict[item['country']
+                            ]['Confirmed'] += item['confirmed']
+                europe_dict[item['country']
+                            ]['Deaths'] += item['deaths']
+
+    return europe_dict
+
+
 #stats for ireland
 def ireland():
     data = requests.get("https://api.covid19api.com/dayone/country/ireland")

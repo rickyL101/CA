@@ -26,20 +26,26 @@ def signout():
 
 
 #user signed in
+
+
+
 @app.route('/home')
 def home():
     if 'user_id' in session:
         data = covid_data.world()
         countries_data = covid_data.countries()
-        return render_template("home.html", data=data, countries = countries_data)
+        return render_template("home.html", data=data, countries=countries_data)
     else:
         return redirect("/")
 
 
 @app.route('/europe')
 def europe():
-    
-
+    if 'user_id' in session:
+        data = covid_data.europe()
+        return render_template("europe.html", europe=data)
+    else:
+        return redirect("/")
 
 @app.route("/ireland")
 def ireland():

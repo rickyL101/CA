@@ -107,11 +107,6 @@
                     </div>
                 </div>
             </div>
-
-            
-
-            
-            
         </div>
     </div>
 
@@ -240,21 +235,7 @@
                     data: {{ cases[-30:]}}
             }],
 
-                responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 1000
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-
-            }
+             
         
         });
 
@@ -322,7 +303,7 @@
         Highcharts.chart('chart5', {
 
                 title: {
-                text: 'Confirmed cases and deaths'
+                text: 'Active cases and Recovered'
             },
 
             subtitle: {

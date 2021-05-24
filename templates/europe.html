@@ -11,18 +11,17 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 
     <!--highcharts-->
 
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/mapdata/countries/in/in-all.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/mapdata/custom/europe.js"></script>
+    
+    
+
+    
 
     <title>Hello, world!</title>
 </head>
@@ -67,17 +66,33 @@
         <br>
     </div>
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-sm-8" style="margin-left: 18%;">
-                <div class="card">
-                    <div class="card-body" id="chart1">
-                    </div>
-                </div>
-                <br>
-            </div>
-        </div>
+    <!-- <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Total Population</th>
+                    <th>Confirmed Cases</th>
+                    <th>Confirmed Deaths</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in europe %}
+                <tr>
+                    <td>{{country}}</td>
+                    <td>{{europe[country]['Population']}}</td>
+                    <td>{{europe[country]['Confirmed']}}</td>
+                    <td>{{europe[country]['Deaths']}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+
+    <div id="europe_map">
+        
     </div>
+    <h5>hello</h5>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -91,4 +106,102 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-        
+        <script type="text/javascript">
+
+            var data = [
+                    ['dk', 0],
+                    ['fo', 1],
+                    ['hr', 2],
+                    ['nl', 3],
+                    ['ee', 4],
+                    ['bg', 5],
+                    ['es', 6],
+                    ['it', 7],
+                    ['sm', 8],
+                    ['va', 9],
+                    ['tr', 10],
+                    ['mt', 11],
+                    ['fr', 12],
+                    ['no', 13],
+                    ['de', 14],
+                    ['ie', 15],
+                    ['ua', 16],
+                    ['fi', 17],
+                    ['se', 18],
+                    ['ru', 19],
+                    ['gb', 20],
+                    ['cy', 21],
+                    ['pt', 22],
+                    ['gr', 23],
+                    ['lt', 24],
+                    ['si', 25],
+                    ['ba', 26],
+                    ['mc', 27],
+                    ['al', 28],
+                    ['cnm', 29],
+                    ['nc', 30],
+                    ['rs', 31],
+                    ['ro', 32],
+                    ['me', 33],
+                    ['li', 34],
+                    ['at', 35],
+                    ['sk', 36],
+                    ['hu', 37],
+                    ['ad', 38],
+                    ['lu', 39],
+                    ['ch', 40],
+                    ['be', 41],
+                    ['kv', 42],
+                    ['pl', 43],
+                    ['mk', 44],
+                    ['lv', 45],
+                    ['by', 46],
+                    ['is', 47],
+                    ['md', 48],
+                    ['cz', 49]
+                ];
+
+                // Create the chart
+                Highcharts.mapChart('europe_map', {
+                    chart: {
+                        map: 'custom/europe'
+                    },
+
+                    title: {
+                        text: 'Highmaps basic demo'
+                    },
+
+                    subtitle: {
+                        text: 'Source map: <a href="http://code.highcharts.com/mapdata/custom/europe.js">Europe</a>'
+                    },
+
+                    mapNavigation: {
+                        enabled: true,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
+
+                    colorAxis: {
+                        min: 0
+                    },
+
+                    series: [{
+                        data: data,
+                        name: 'Random data',
+                        states: {
+                            hover: {
+                                color: '#BADA55'
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }]
+                });
+        </script>
+
+</body>
+
+<html>
