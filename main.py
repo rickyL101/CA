@@ -8,9 +8,6 @@ app = Flask(__name__)
 #will grant a 24 digit code to a user upon signin
 app.secret_key = os.urandom(24) 
 
-
-
-    
 #base page
 @app.route("/")
 def signin():
@@ -38,6 +35,12 @@ def home():
     else:
         return redirect("/")
 
+
+@app.route('/europe')
+def europe():
+    
+
+
 @app.route("/ireland")
 def ireland():
     if 'user_id' in session:
@@ -45,7 +48,14 @@ def ireland():
         days = ireland_data[0]
         cases = ireland_data[1]
         deaths = ireland_data[2]
-        return render_template("ireland.html", ireland=ireland_data, days=days, cases=cases, deaths=deaths)
+        recovered = ireland_data[3]
+        active = ireland_data[4]
+        ireland_counties = covid_data.ireland_counties()
+        county_name = ireland_counties[0]
+        county_cases= ireland_counties[1]
+        return render_template("ireland.html", ireland=ireland_data, days=days, cases=cases, deaths=deaths, recovered = recovered, active=active,
+        ireland_counties=ireland_counties, county_name=county_name, county_cases = county_cases)
+                                                               
     else:
         return redirect("/")
 

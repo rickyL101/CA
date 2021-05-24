@@ -61,7 +61,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h1>IRELAND</h1>
+                <h1>REPUBLIC OF IRELAND</h1>
             </div>
         </div>
         <br>
@@ -69,7 +69,17 @@
 
     <div class="container text-center">
         <div class="row">
-            <div class="col-sm-8" style ="margin-left: 18%;">
+
+            <div class="col-sm-10" style="margin-left: 10%;">
+                <div class="card">
+                    <div class="card-body" id="chart4">
+                    </div>
+                </div>
+                <br>
+            </div>
+
+
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body" id="chart1">
                     </div>
@@ -77,7 +87,12 @@
                 <br>
             </div>
 
-            
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body" id="chart5">
+                    </div>
+                </div>
+            </div>
             
             <div class="col-sm-6">
                 <div class="card">
@@ -92,6 +107,10 @@
                     </div>
                 </div>
             </div>
+
+            
+
+            
             
         </div>
     </div>
@@ -224,7 +243,7 @@
                 responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 500
+                        maxWidth: 1000
                     },
                     chartOptions: {
                         legend: {
@@ -285,7 +304,7 @@
             responsive: {
                 rules: [{
                     condition: {
-                        maxWidth: 500
+                        maxWidth: 1000
                 },
                 chartOptions: {
                     legend: {
@@ -299,6 +318,143 @@
         }
         
         });
+
+        Highcharts.chart('chart5', {
+
+                title: {
+                text: 'Confirmed cases and deaths'
+            },
+
+            subtitle: {
+                text: 'Data plotted for every 5th day'
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Number of People'
+                }
+            },
+
+            xAxis: {
+                accessibility: {
+                    rangeDescription: 'Range:'
+                },
+                title: {
+                    text: 'Number of Days'
+                },
+                categories: {{ days[:: 5] + [days[-1]]}}
+            },
+
+            legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+            plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1
+            }
+        },
+
+            series: [{
+                name: 'Active Cases',
+                data: {{ active[:: 5] + [active[-1]]}}
+                }, {
+                name: 'Recovered',
+                data: {{ recovered[:: 5] + [recovered[-1]]}}
+            }],
+
+            responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 1000
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+        
+        });
+
+        Highcharts.chart('chart4', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Cases by County'
+                },
+                
+                xAxis: {
+
+                    categories: [
+                        '{{ireland_counties[0][-1]}}',
+                        '{{ireland_counties[0][-2]}}',
+                        '{{ireland_counties[0][-3]}}',
+                        '{{ireland_counties[0][-4]}}',
+                        '{{ireland_counties[0][-5]}}',
+                        '{{ireland_counties[0][-6]}}',
+                        '{{ireland_counties[0][-7]}}',
+                        '{{ireland_counties[0][-8]}}',
+                        '{{ireland_counties[0][-9]}}',
+                        '{{ireland_counties[0][-10]}}',
+                        '{{ireland_counties[0][-11]}}',
+                        '{{ireland_counties[0][-12]}}',
+                        '{{ireland_counties[0][-13]}}',
+                        '{{ireland_counties[0][-14]}}',
+                        '{{ireland_counties[0][-15]}}',
+                        '{{ireland_counties[0][-16]}}',
+                        '{{ireland_counties[0][-17]}}',
+                        '{{ireland_counties[0][-18]}}',
+                        '{{ireland_counties[0][-19]}}',
+                        '{{ireland_counties[0][-20]}}',
+                        '{{ireland_counties[0][-21]}}',
+                        '{{ireland_counties[0][-22]}}',
+                        '{{ireland_counties[0][-23]}}',
+                        '{{ireland_counties[0][-24]}}',
+                        '{{ireland_counties[0][-25]}}',
+                        '{{ireland_counties[0][-26]}}'
+                
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Number of people'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0,
+                        borderWidth: 0
+                    }
+                },
+
+                series: [{
+                    name: 'Confirmed Cases',
+                    data: {{ ireland_counties[1][-26: ][::- 1]}}
+                }]
+
+            });
+
+        
 
     </script>
 

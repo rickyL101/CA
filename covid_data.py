@@ -32,18 +32,40 @@ def ireland():
     days = []
     cases = []
     deaths = []
+    recovered = []
+    active = []
     i = 1
 
     for item in ireland_data:
         days.append(i)
         cases.append(item['Confirmed'])
         deaths.append(item['Deaths'])
+        recovered.append(item['Recovered'])
+        active.append(item['Active'])
         i += 1
     
-    ireland_list = [days[:-1], cases[:-1], deaths[:-1]]
+    ireland_list = [days[:-1], cases[:-1],
+                    deaths[:-1], recovered[:-1], active[:-1]]
 
     return ireland_list
 
-        
+def ireland_counties():
+    data = requests.get("https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Covid19CountyStatisticsHPSCIrelandOpenData/FeatureServer/0/query?where=1%3D1&outFields=CountyName,ConfirmedCovidCases,ConfirmedCovidDeaths&returnGeometry=false&outSR=4326&f=json")
+    ireland_counties = data.json()
 
+    county = []
+    county_cases = []
+
+    for item in ireland_counties['features']:
+        county.append(item['attributes']['CountyName'])
+        county_cases.append(item['attributes']['ConfirmedCovidCases'])
+    
+
+    ireland_list = [county, county_cases]
+
+    return ireland_list
+
+    
+
+    
 
