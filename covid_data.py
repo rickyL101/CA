@@ -24,6 +24,7 @@ def countries():
 
     return countries_dict
 
+#stats for page europe stored in a dictionary
 def europe():
     data = requests.get("https://disease.sh/v3/covid-19/countries")
     europe_data = data.json()
@@ -43,7 +44,7 @@ def europe():
     return europe_dict
 
 
-#stats for ireland
+#stats for ireland stored in a list
 def ireland():
     data = requests.get("https://api.covid19api.com/dayone/country/ireland")
     ireland_data = data.json()
@@ -68,6 +69,7 @@ def ireland():
 
     return ireland_list
 
+#stats for individual counties in ireland stored in a list
 def ireland_counties():
     data = requests.get("https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Covid19CountyStatisticsHPSCIrelandOpenData/FeatureServer/0/query?where=1%3D1&outFields=CountyName,ConfirmedCovidCases,ConfirmedCovidDeaths&returnGeometry=false&outSR=4326&f=json")
     ireland_counties = data.json()

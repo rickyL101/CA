@@ -18,17 +18,13 @@ def signin():
 def signup():
     return render_template("signup.html")
 
-
+#logout page
 @app.route("/logout")
 def signout():
     session.pop('user_id')
     return redirect("/")
 
-
 #user signed in
-
-
-
 @app.route('/home')
 def home():
     if 'user_id' in session:
