@@ -49,21 +49,21 @@
             <div class="col-md-4">
                 <div class="card mt-100">
                     <div class="card-body">
-                        <form class="form" method="POST"  action="/add">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="user_name" required>
-                            <br>
+                        <form class="form" method="post" action="/validation">
                             <label for="email">Email</label>
                             <br>
-                            <input type="email" class="form-control" name="user_email" required>
+                            <input type="email" class="form-control" name="email">
                             <br>
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="user_password" required>
+                            <label for="password">Current Password</label>
+                            <input type="password" class="form-control" name="password">
+                            <br>
+                            <label for="password">New Password</label>
+                            <input type="password" class="form-control" name="new_password">
                             <br>
                             <input type="submit" class="btn btn-primary btn-block" Value="Login">
                         </form>
                         <br>
-                        <p>Already have an account? <a href="/">Login Here</a></p>
+                        <p>Not signed up? <a href="/signup">Create Account</a></p>
                     </div>
                 </div>
             </div>

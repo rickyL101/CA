@@ -34,7 +34,54 @@ def home():
     else:
         return redirect("/")
 
+#to validate user login
 
+
+@app.route("/validation", methods=["POST"])
+def validation():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    db.cursor.execute(
+        f'''Select * FROM `users` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';''')
+    users = db.cursor.fetchall()
+    if len(users) > 0:
+        session['user_id'] = users[0][0]
+        return redirect("/home")
+    else:
+        flash("Email or Password is incorrect", category='error')
+        return render_template('signin.html', flash=flash)
+
+#add a new user
+
+
+@app.route('/add', methods=['POST', 'GET'])
+def add():
+    if request.method == 'POST':
+        name = request.form.get('user_name')
+        email = request.form.get('user_email')
+        password = request.form.get('user_password')
+        db.cursor.execute(
+            f'''SELECT * FROM `users` WHERE `email` LIKE '{email}';''')
+        check_email = db.cursor.fetchone()
+        if check_email != 0:
+            flash("Email already in use", category='error')
+            return render_template('signup.html', flash=flash)
+        if len(password) < 5:
+            flash("Password must be at least 5 characters long", category='error')
+            return render_template('signup.html', flash=flash)
+        else:
+            db.cursor.execute(
+                f'''INSERT INTO `users`(`user_id`, `name`, `email`, `password`) VALUES (NULL, '{name}', '{email}', '{password}');''')
+            db.connection.commit()
+            db.cursor.execute(
+                f'''SELECT * FROM `users` WHERE `email` LIKE '{email}';''')
+            new_user = db.cursor.fetchall()
+            session['user_id'] = new_user[0][0]
+            return redirect('/home')
+
+
+
+#page for europe covid data
 @app.route('/europe')
 def europe():
     if 'user_id' in session:
@@ -46,6 +93,7 @@ def europe():
     else:
         return redirect("/")
 
+#page for ireland covid data
 @app.route("/ireland")
 def ireland():
     if 'user_id' in session:
@@ -64,33 +112,7 @@ def ireland():
     else:
         return redirect("/")
 
-#to validate user login
-@app.route("/validation", methods=["POST"])
-def validation():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    db.cursor.execute(f'''Select * FROM `users` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';''')
-    users = db.cursor.fetchall()
-    if len(users) > 0:
-        session['user_id'] = users[0][0]
-        return redirect("/home")
-    else:
-        return redirect("/")
-        
 
-#add a new user
-@app.route('/add', methods=['POST'])
-def add():
-    name = request.form.get('user_name')
-    email = request.form.get('user_email')
-    password = request.form.get('user_password')
-    db.cursor.execute(f'''INSERT INTO `users`(`user_id`, `name`, `email`, `password`) VALUES (NULL, '{name}', '{email}', '{password}');''')
-    db.connection.commit()
-
-    db.cursor.execute(f'''SELECT * FROM `users` WHERE `email` LIKE '{email}';''')
-    new_user = db.cursor.fetchall()
-    session['user_id'] = new_user[0][0]
-    return redirect('/home')
     
 if __name__ == '__main__':
     db.createDB()
