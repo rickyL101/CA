@@ -24,31 +24,31 @@ def countries():
 
     return countries_dict
 
-#stats for page europe stored in a dictionary
+#stats for europe stored in a list
 def europe():
     data = requests.get("https://disease.sh/v3/covid-19/countries")
     europe_data = data.json()
 
-    europe_dict = {}
+    iso = []
+    country = []
+    country_cases = []
+
+    #have to include Asia here as the API classifies some countries like Turkey in Asia
     for item in europe_data:
-        if item['continent'] == 'Europe':
-            if item['country'] not in europe_data:
-                europe_dict.update({item['country']: {'Population': item['population'],
-                                    'Confirmed': item['cases'], 'Deaths': item['deaths']}})
-            else:
-                europe_dict[item['country']
-                            ]['Confirmed'] += item['confirmed']
-                europe_dict[item['country']
-                            ]['Deaths'] += item['deaths']
+        if item['continent'] == 'Europe' or item['continent'] == 'Asia':
+            iso.append(item['countryInfo']['iso2'])
+            country.append(item['country'])
+            country_cases.append(item['cases'])
 
-    return europe_dict
+    europe_list = [iso, country, country_cases]
 
+    return europe_list
 
 #stats for ireland stored in a list
 def ireland():
-    data = requests.get("https://api.covid19api.com/dayone/country/ireland")
+    data = requests.get("   ")
     ireland_data = data.json()
-    
+
     days = []
     cases = []
     deaths = []
@@ -63,7 +63,7 @@ def ireland():
         recovered.append(item['Recovered'])
         active.append(item['Active'])
         i += 1
-    
+
     ireland_list = [days[:-1], cases[:-1],
                     deaths[:-1], recovered[:-1], active[:-1]]
 
@@ -80,13 +80,13 @@ def ireland_counties():
     for item in ireland_counties['features']:
         county.append(item['attributes']['CountyName'])
         county_cases.append(item['attributes']['ConfirmedCovidCases'])
-    
+
 
     ireland_list = [county, county_cases]
 
     return ireland_list
 
-    
 
-    
+
+
 

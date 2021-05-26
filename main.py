@@ -39,7 +39,10 @@ def home():
 def europe():
     if 'user_id' in session:
         data = covid_data.europe()
-        return render_template("europe.html", europe=data)
+        iso = data[0]
+        country = data[1]
+        country_cases = data[2]
+        return render_template("europe.html", europe=data, iso=iso, country=country, country_cases=country_cases)
     else:
         return redirect("/")
 
