@@ -13,13 +13,13 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 
-    <title>Hello, world!</title>
+    <title>Covid Tracker</title>
 </head>
 
 <body class="background">
 
     <nav class="navbar  background">
-        <a href="" class="navbar-brand text-light">Test</a>
+        <a href="" class="navbar-brand text-light ">Covid-19 Tracker</a>
     </nav>
 
     <!--below from the vid https://www.youtube.com/watch?v=dam0GPOAvVI&t=5696s section[message flashing] -->
@@ -44,10 +44,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p class=" display-1 text-light"> This is a test </p>
+                <p class=" display-1 text-light"> Tracks and displays daily data on the Covid-19 virus</p>
             </div>
-            <div class="col-md-4">
-                <div class="card mt-100">
+            <div class="col-md-4" style="margin-top:10%">
+                <div class="card mt-10">
                     <div class="card-body">
                         <form class= "form" method="post" action="/validation">
                             <label for="email">Email</label>
