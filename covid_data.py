@@ -70,6 +70,7 @@ def ireland():
     return ireland_list
 
 #stats for individual counties in ireland stored in a list
+#note: this is not updating since the HSE hack
 def ireland_counties():
     data = requests.get("https://services1.arcgis.com/eNO7HHeQ3rUcBllm/arcgis/rest/services/Covid19CountyStatisticsHPSCIrelandOpenData/FeatureServer/0/query?where=1%3D1&outFields=CountyName,ConfirmedCovidCases,ConfirmedCovidDeaths&returnGeometry=false&outSR=4326&f=json")
     ireland_counties = data.json()
@@ -85,6 +86,9 @@ def ireland_counties():
     ireland_list = [county, county_cases]
 
     return ireland_list
+
+
+    
 
 
 

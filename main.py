@@ -4,7 +4,7 @@ import os
 import db
 app = Flask(__name__)
 
-# https://stackoverflow.com/questions/34902378/where-do-i-get-a-secret-key-for-flask/34903502
+
 #will grant a 24 digit code to a user upon signin
 app.secret_key = os.urandom(24) 
 
@@ -24,7 +24,7 @@ def signout():
     session.pop('user_id')
     return redirect("/")
 
-#user signed in
+#if user is in session return home data, else redirect them to base page
 @app.route('/home')
 def home():
     if 'user_id' in session:
@@ -43,6 +43,7 @@ def profile():
         return redirect("/")
 
 #to validate user login
+#upon post, search database for matching email and password
 @app.route("/validation", methods=["POST"])
 def validation():
     email = request.form.get('email')
@@ -57,8 +58,8 @@ def validation():
         return render_template('signin.html', flash=flash)
 
 #add a new user
-
-
+#upon post, checks if user already exists, if password len is less than 5
+#if not then inserts the user into the db and logs them in
 @app.route('/add', methods=['POST', 'GET'])
 def add():
     if request.method == 'POST':
@@ -81,7 +82,8 @@ def add():
             session['user_id'] = new_user[0][0]
             return redirect('/home')
 
-
+#update user password
+#checks user email and password exists, then replaces old password with new
 @app.route('/update', methods=['POST', 'GET'])
 def update():
     if request.method == 'POST':
@@ -101,6 +103,8 @@ def update():
             db.connection.commit()
             return redirect("/")
 
+#delete user
+#checks user email and password exists, then deletes the account
 @app.route('/delete', methods=['POST'])
 def delete():
     if request.method == 'POST':
@@ -144,14 +148,13 @@ def ireland():
         county_name = ireland_counties[0]
         county_cases= ireland_counties[1]
         return render_template("ireland.html", ireland=ireland_data, days=days, cases=cases, deaths=deaths, recovered = recovered, active=active,
-        ireland_counties=ireland_counties, county_name=county_name, county_cases = county_cases)
-                                                               
+        ireland_counties=ireland_counties, county_name=county_name, county_cases = county_cases)                                                      
     else:
         return redirect("/")
 
 
-    
+#creates a db table for users if it doesn't already exist
 if __name__ == '__main__':
     db.createDB()
-    app.run(debug=True)
+    app.run()
 
