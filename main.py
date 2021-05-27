@@ -101,10 +101,12 @@ def update():
         else:
             db.cursor.execute(f'''UPDATE `users` SET `password` = '{new_password}' WHERE `email` = '{email}' AND `password` = '{password}';''')
             db.connection.commit()
-            return redirect("/")
+            flash("Password updated", category='success')
+            return render_template('profile.html', flash=flash)
 
 #delete user
 #checks user email and password exists, then deletes the account
+#signs the user out and displays a message that the account has been deleted
 @app.route('/delete', methods=['POST'])
 def delete():
     if request.method == 'POST':
