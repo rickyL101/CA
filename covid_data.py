@@ -46,7 +46,7 @@ def europe():
 
 #stats for ireland stored in a list
 def ireland():
-    data = requests.get("   ")
+    data = requests.get("https://api.covid19api.com/dayone/country/ireland")
     ireland_data = data.json()
 
     days = []

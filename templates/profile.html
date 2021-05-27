@@ -16,11 +16,33 @@
     <title>Hello, world!</title>
 </head>
 
-<body class="background">
+<body>
 
-    <nav class="navbar  background">
-        <a href="" class="navbar-brand text-light">Test</a>
-    </nav>
+    <!-- Below block taken from bootstrap -->
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h2 class="my-0 mr-md-auto font-weight-normal">Covid-19 Tracker</h2>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="btn btn-outline-secondary" href="/">Profile</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="/">Sign Out</a>
+    </div>
+
+    <div class="container text-center">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/europe">Europe</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ireland">Ireland</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/vaccinations">Vaccinations</a>
+            </li>
+        </ul>
+    </div>
 
     <!--below from the vid https://www.youtube.com/watch?v=dam0GPOAvVI&t=5696s section[message flashing] -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -49,21 +71,41 @@
             <div class="col-md-4">
                 <div class="card mt-100">
                     <div class="card-body">
-                        <form class="form" method="post" action="/validation">
+                        <label for="email">DELETE PROFILE</label>
+                        <form class="form" method="post" action="/update">
                             <label for="email">Email</label>
                             <br>
-                            <input type="email" class="form-control" name="email">
+                            <input type="email" class="form-control" name="demail">
                             <br>
                             <label for="password">Current Password</label>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control" name="dpassword">
+                            <br>
+                            <input type="submit" class="btn btn-primary btn-block" Value="Delete">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mt-100">
+                    <div class="card-body">
+                        <form class="form" method="post" action="/update">
+                            <label for="email">Email</label>
+                            <br>
+                            <input type="email" class="form-control" name="uemail">
+                            <br>
+                            <label for="password">Current Password</label>
+                            <input type="password" class="form-control" name="upassword">
                             <br>
                             <label for="password">New Password</label>
                             <input type="password" class="form-control" name="new_password">
                             <br>
-                            <input type="submit" class="btn btn-primary btn-block" Value="Login">
+                            <input type="submit" class="btn btn-primary btn-block" Value="Update">
                         </form>
-                        <br>
-                        <p>Not signed up? <a href="/signup">Create Account</a></p>
                     </div>
                 </div>
             </div>
