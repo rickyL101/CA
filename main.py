@@ -99,12 +99,23 @@ def update():
         else:
             db.cursor.execute(f'''UPDATE `users` SET `password` = '{new_password}' WHERE `email` = '{email}' AND `password` = '{password}';''')
             db.connection.commit()
-            flash("Password Updated", category='success')
-            return render_template('profile.html', flash=flash)
+            return redirect("/")
 
-# @app.route('/delete', methods=['POST'])
-# def delete():
-#     if request.method == 'POST':
+@app.route('/delete', methods=['POST'])
+def delete():
+    if request.method == 'POST':
+        email = request.form.get('demail')
+        password = request.form.get('dpassword')
+    db.cursor.execute(f'''SELECT * FROM `users` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';''')
+    check_credentials = db.cursor.fetchall()
+    if len(check_credentials) == 0:
+        flash("User not found. Please try again", category='error')
+        return render_template('profile.html', flash=flash)
+    else:
+        db.cursor.execute(f'''DELETE FROM `users` WHERE `email` = '{email}' AND `password` = '{password}';''')
+        session.pop('user_id')
+        flash("Account successfully deleted")
+        return render_template('signin.html', flash=flash)
 
 
 #page for europe covid data

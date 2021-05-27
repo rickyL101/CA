@@ -64,15 +64,13 @@
     {% endif %} {% endfor %} {% endif %} {% endwith %}
 
     <div class="container">
+        <br>
         <div class="row">
-            <div class="col-md-8">
-                <p class=" display-1 text-light"> This is a test </p>
-            </div>
             <div class="col-md-4">
                 <div class="card mt-100">
                     <div class="card-body">
                         <label for="email">DELETE PROFILE</label>
-                        <form class="form" method="post" action="/update">
+                        <form class="form" method="post" action="/delete">
                             <label for="email">Email</label>
                             <br>
                             <input type="email" class="form-control" name="demail">
@@ -85,14 +83,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
             <div class="col-md-4">
                 <div class="card mt-100">
                     <div class="card-body">
+                        <label for="email">UPDATE PROFILE</label>
                         <form class="form" method="post" action="/update">
                             <label for="email">Email</label>
                             <br>
