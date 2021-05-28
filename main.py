@@ -155,7 +155,7 @@ def ireland():
         return redirect("/")
 
 
-#creates a db table for users if it doesn't already exist
+#creates a db table for users if it doesn't already exist.
 if __name__ == '__main__':
     db.createDB()
     app.run(host='0.0.0.0', port='443',ssl_context=('../cert.pem', '../privkey.pem'))
